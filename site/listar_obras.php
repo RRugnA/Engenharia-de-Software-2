@@ -1,8 +1,6 @@
 <?php
 include('conexao.php');
-require_once 'Funcionario.php';
-require_once 'Servidor.php';
-require_once 'Legislativo.php';
+require_once 'Obras.php';
 
 $pagina = filter_input(INPUT_POST, 'pagina', FILTER_SANITIZE_NUMBER_INT);
 $qnt_result_pg = filter_input(INPUT_POST, 'qnt_result_pg', FILTER_SANITIZE_NUMBER_INT);
@@ -14,10 +12,16 @@ $inicio = ($pagina * $qnt_result_pg) - $qnt_result_pg;
 //consultar no BD
 
 if($ordem == 0){
-    $result_usuario = "SELECT * FROM projetos ORDER BY Nome ASC LIMIT $inicio, $qnt_result_pg";
+    $result_usuario = "SELECT * FROM obras ORDER BY Destino ASC LIMIT $inicio, $qnt_result_pg";
     $resultado_usuario = mysqli_query($conn, $result_usuario);
 }elseif($ordem == 1){
-    $result_usuario = "SELECT * FROM projetos ORDER BY id ASC LIMIT $inicio, $qnt_result_pg";
+    $result_usuario = "SELECT * FROM obras ORDER BY Datainicio ASC LIMIT $inicio, $qnt_result_pg";
+    $resultado_usuario = mysqli_query($conn, $result_usuario);
+}elseif($ordem == 2){
+    $result_usuario = "SELECT * FROM obras ORDER BY Datafim DESC LIMIT $inicio, $qnt_result_pg";
+    $resultado_usuario = mysqli_query($conn, $result_usuario);
+}elseif($ordem == 3){
+    $result_usuario = "SELECT * FROM obras ORDER BY Situacao ASC LIMIT $inicio, $qnt_result_pg";
     $resultado_usuario = mysqli_query($conn, $result_usuario);
 }
 
@@ -27,29 +31,27 @@ if(($resultado_usuario) AND ($resultado_usuario->num_rows != 0)){
     <table class="table table-striped table-bordered table-hover ">
         <thead>
             <tr>
-                <th>Num/Ano</th>
-                <th>Autor</th>
-                <th>Assunto</th>
-                <th>Status</th>
+                <th>Destino</th>
+                <th>Início</th>
+                <th>Conclusão</th>
+                <th>Situação</th>
             </tr>
         </thead>
         <tbody>
         <?php
         while($row_usuario = mysqli_fetch_assoc($resultado_usuario)){
 
-            $servidor = new Legislativo();
-            $servidor->setProjeto($row_usuario['Projeto']);
-            $serv = new Servidor();
-            $serv->setNome($row_usuario['Nome']);
-            $servidor->setServidor($serv);
-            $servidor->setAssunto($row_usuario['Assunto']);
-            $servidor->setAnotacao($row_usuario['Anotacao']);
+            $obra = new Obras();
+            $obra->setDestino($row_usuario['Destino']);
+            $obra->setDatainicio(date('d/m/Y', strtotime($row_usuario['Datainicio'])));
+            $obra->setDatafim(date('d/m/Y', strtotime($row_usuario['Datafim'])));
+            $obra->setSituacao($row_usuario['Situacao']);
 
             echo "<tr>";
-                echo "<th>" . $servidor->getProjeto() . "</th>";
-                echo "<th>" . $servidor->getServidor()->getNome() . "</th>";
-                echo "<th>" . $servidor->getAssunto() . "</th>";
-                echo "<th>" . $servidor->getAnotacao() . "</th>";
+                echo "<th>" . $obra->getDestino() . "</th>";
+                echo "<th>" . $obra->getDatainicio() . "</th>";
+                echo "<th>" . $obra->getDatafim() . "</th>";
+                echo "<th>" . $obra->getSituacao() . "</th>";
             echo "</tr>";        
         }
     ?>
@@ -57,7 +59,7 @@ if(($resultado_usuario) AND ($resultado_usuario->num_rows != 0)){
     </table>
 <?php
 //paginação - somar a quantidade de usuários
-$result_pg = "SELECT COUNT(id) AS num_result FROM projetos";
+$result_pg = "SELECT COUNT(id) AS num_result FROM obras";
 $resultado_pg = mysqli_query($conn, $result_pg);
 $row_pg = mysqli_fetch_assoc($resultado_pg);
 
@@ -98,7 +100,8 @@ echo '</ul>';
 echo '</nav>';
 
 }else{
-    echo "<div class='alert alert-danger' role='alert'> Nenhum usuário encontrado </div>";
+    echo "<div class='alert alert-danger' role='alert'> Nenhum resultado encontrado </div>";
 }   
 ?>
-    <input class="btn btn-outline-succes mb-3" type="button" onclick="location.href='pesquisa_camara.php';" value="Voltar" />
+
+    <input class="btn btn-outline-succes mb-3" type="button" onclick="location.href='pesquisa_obras.php';" value="Voltar" />

@@ -44,8 +44,8 @@ cont2 = len(cont.values())
 # Puxar tabela com Pandas e salvar no array
 for i in range(cont2):
     df_full = pd.read_html('http://www.cmmc.com.br/projetos/plo.php?pg='+str(i), header=0)[8]        
-    df = df_full[['AUTOR', 'ASSUNTO', 'ANOTAÇÃO']]
-    df.columns = ['autor', 'assunto', 'anotacao']
+    df = df_full[['Nº', 'AUTOR', 'ASSUNTO', 'ANOTAÇÃO']]
+    df.columns = ['nº', 'autor', 'assunto', 'anotacao']
 
     camara[i] = df.to_dict('records')
 
@@ -66,7 +66,7 @@ for x in range(cont2):
     for y in range(12):
         try:
             servlist = list(projetos[x][y].values())
-            sql = "INSERT INTO projetos(autor, assunto, anotacao) VALUES(%s,%s,%s)"            
+            sql = "INSERT INTO projetos(projeto, nome, assunto, anotacao) VALUES(%s,%s,%s,%s)"            
             cursor.execute(sql, servlist)            
             conexão.commit()
         except:

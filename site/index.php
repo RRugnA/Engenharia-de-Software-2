@@ -1,6 +1,3 @@
-<?php
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -13,8 +10,9 @@
                     <p class="titulo-mogi">De Olho Mogi das Cruzes</p>
                 </div>
                 <div class="col-12 py-5">
-                    <form action="search.php" method="GET" class="fc my-2 my-lg-0"> 
-                        <input size="75%" type="text" autocomplete="on" name="q" placeholder="Digite a sua pesquisa">
+                    <form action="pesquisar.php" method="POST" class="fc my-2 my-lg-0"> 
+                        <p class="pesquisa">Pesquisa rápida:</p>
+                        <input size="75%" type="text" autocomplete="on" name="pesquisar" placeholder="Digite o nome do servidor">
                         <input type="submit" value="Pesquisar" class="btn btn-outline-success">
                     </form>             
                 </div>
@@ -58,7 +56,7 @@
 
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 pt-3">
                     <div class="content">
-                        <a href="#">
+                        <a href="pesquisa_obras.php">
                             <i class="fa fa-building fa-5x py-3" aria-hidden="true"></i>
                             <h2 class="pb-3">Obras <br> Públicas</h2>
                             <p>Informações sobre Obras Públicas, custos e origem de recursos</p>

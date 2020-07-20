@@ -31,11 +31,15 @@
                 }
                 if(area == 0){
                     $.post('listar_camara.php', dados, function(retorna){
-                    $("#conteudo").html(retorna);
+                        $("#conteudo").html(retorna);
                     });
                 }else if(area == 1){
                     $.post('listar_servidores.php', dados, function(retorna){
-                    $("#conteudo").html(retorna);
+                        $("#conteudo").html(retorna);
+                    });
+                }else if(area == 2){
+                    $.post('listar_obras.php', dados, function(retorna){
+                        $("#conteudo").html(retorna);
                     });
                 }
                 

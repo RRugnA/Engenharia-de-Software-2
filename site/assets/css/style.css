@@ -47,14 +47,24 @@ a:hover{
 .link-icone:hover{
     color: green;
 }
-footer{
+.background-cinza{
   background-color: #f8f9fa;
 }
 .texto-footer{
     font-size: 12px;
 }
-
-
+.pesquisa{
+  font-size: 30px;
+  color: green;
+  font-weight: bolder;
+}
+.page-link{
+  color: #008000;
+}
+.page-item.active .page-link{
+  background-color: #008000;
+  border-color: #008000;
+}
 
 /* =========================== */
 

@@ -1,5 +1,17 @@
-<footer>
-        <div class="links pt-5">
+    <footer>
+        <div class="pr-5 text-right pb-3 background-branco">
+            <p class="mb-0 font-weight-bold">Compartilhe!</p>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=#">
+                <img width="25" height="25" src="assets/imagens/imgfacebook.jpg" alt="">
+            </a>
+            <a href="https://api.whatsapp.com/send?text=#">
+                <img width="25" height="25" src="assets/imagens/imgwhatsapp.jpg" alt="">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=#">
+                <img width="25" height="25" src="assets/imagens/imglink.jpg" alt="">
+            </a>
+        </div>
+        <div class="links pt-5 background-cinza">
             <div class="container">
                 <div class="row">
                     <div class="col-4">                    
